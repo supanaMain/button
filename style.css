@@ -1,0 +1,29 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+#header {
+    background-image: url(./img/back_command_block.png);
+}
+#header {
+    font-family: "MS ゴシック";
+    text-align: center;
+}
+
+ul {
+    overflow:hidden;
+    list-style:none;
+    margin: 0 auto;
+    z-index: 20;
+    text-align: center;
+}
+
+ul li {
+    display: inline-block;
+    padding: 0.5em;
+}
+li {
+    font-family: Impact;
+    letter-spacing: 0.1em;
+    border: solid, 0.1em, black;
+}
