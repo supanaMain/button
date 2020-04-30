@@ -1,4 +1,6 @@
 enchant();
+enchant.Sound.enabledInMobieSafari = true;
+enchant.Sound.enabledInMobieChrome = true;
 //おまじにゃい
 
 var Coin = enchant.Class.create(enchant.Sprite, {
