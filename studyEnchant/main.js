@@ -1,7 +1,9 @@
 enchant();
-enchant.Sound.enabledInMobieSafari = true;
-enchant.Sound.enabledInMobieChrome = true;
 //おまじにゃい
+
+var testAudio = new Audio('./sound/one_0.mp3');
+testAudio.play();
+
 
 var Coin = enchant.Class.create(enchant.Sprite, {
 	initialize: function(x, y) {
