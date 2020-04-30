@@ -1,4 +1,5 @@
 enchant();
+enchant.Sound.enabledInMobileSafari = true;
 //おまじにゃい
 
 var testAudio = new Audio('./sound/one_0.mp3');
