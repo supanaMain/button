@@ -67,8 +67,8 @@ var Player = enchant.Class.create(enchant.Sprite, {
 		});
 
 		this.addEventListener('touchmove', function(e) {
-			this.x = e.x - width / 2;
-			this.y = e.y - height / 2;
+			this.x = e.x - this.width / 2;
+			this.y = e.y - this.height / 2;
 		});
 	}
 });
