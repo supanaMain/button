@@ -88,6 +88,18 @@ window.onload = function() {
 	core.time = 0;
 	core.life = 3;
 
+	//ブラウザのLocalStorageにデータを保存するデバック機能を有効にする
+	//9leapのデータベースに保存する場合は「false」
+	enchant.nineleap.memory.LocalStorage.DEBUG_MODE = true;
+
+	//ゲームIDを設定する
+	//9leapのデータベースに保存する場合は
+	//9leapの「ゲームID」(9leapにアップロードしたゲームのURLの末尾の数字)を設定する
+	enchant.nineleap.memory.LocalStorage.GAME_ID = 'button_sample001';
+
+	//自分のデータを読み込む
+	core.memory.player.preload();
+
 	core.preload(
 		'./img/betty.png',
 		'./img/flowers.png',
@@ -103,6 +115,18 @@ window.onload = function() {
 	core.se = DOMSound.load('./sound/Ready.wav');
 
 	core.onload = function () {
+
+		//メモリの初期化
+		if(core.memory.player.data.score == null) {
+			core.memory.player.data.score = core.score;
+		}
+		if(core.memory.player.data.life == null) {
+			core.memory.player.data.life = core.life;
+		}
+
+		//データ復元（読み込んだデータを各プロパティに代入する）
+		core.score = core.memory.player.data.score;	//スコア
+		core.life = core.memory.player.data.life;	//ライフ
 
 		//マップの作製
 		var map = new Map(16,16);
@@ -244,8 +268,28 @@ window.onload = function() {
 							 }});
 				}
 			}
+			//セーブラベルの文字列をセットする
+			saveLabel.text = "SAVE";
 		});
 
+		var saveLabel = new MutableText(16, 320 -16);
+		saveLabel.addEventListener('touchstart', function(e) {
+			this.backgroundColor = '#F0F0F0';
+		});
+		saveLabel.addEventListener('touchend', function(e) {
+			this.backgroundColor = '';
+
+			//データの保存処理
+			//ライフとスコアをメモリに書き込む
+			core.memory.player.data.life = core.life;
+			core.memory.player.data.score = core.score;
+			//保存を実行する
+			core.memory.update();
+		});
+
+		core.rootScene.addChild(saveLabel);
+
+		//ライフをアイコンで表示するラベルを作成
 		var lifeLabel = new LifeLabel(180, 0, core.life);
 		core.rootScene.addChild(lifeLabel);
 
