@@ -202,6 +202,20 @@ window.onload = function() {
 
 		core.rootScene.addChild(infoLabel);
 
+		var is_bgm = false;
+		infoLabel.addEventListener('touchstart', function(e) {
+			if(!is_bgm) {
+				core.bgm.volum = 0.5;
+				core.bgm.play();
+				// core.se.play();
+				is_bgm = true;
+			} else {
+				core.bgm.stop();
+				// core.se.stop();
+				is_bgm = false;
+			}
+		});
+
 		core.rootScene.addEventListener('enterframe', function(e) {
 			if(player.x > 300) {
 				core.pushScene(core.field(player.x, player.y));
@@ -215,16 +229,6 @@ window.onload = function() {
 				player.y = 50;
 				if(core.life == 0) core.stop();
 			}
-
-			//BGMのボリュームを設定する(0~1)
-			core.rootScene.addEventListener('touchstart', function(e) {
-				var is_bgm = false;
-				if(is_bgm) return;
-				core.bgm.volum = 0.5;
-				core.bgm.play();
-				core.se.play();
-				is_bgm = true;
-			});
 		});
 
 		var lifeLabel = new LifeLabel(180, 0, core.life);
