@@ -2,10 +2,6 @@ enchant();
 enchant.Sound.enabledInMobileSafari = true;
 //おまじにゃい
 
-var testAudio = new Audio('./sound/one_0.mp3');
-testAudio.play();
-
-
 var Coin = enchant.Class.create(enchant.Sprite, {
 	initialize: function(x, y) {
 		enchant.Sprite.call(this, 32, 32);
@@ -108,9 +104,14 @@ window.onload = function() {
 
 	core.onload = function () {
 		//BGMのボリュームを設定する(0~1)
-		core.bgm.volum = 0.5;
-		core.bgm.play();
-		core.se.play();
+		var is_bgm = false;
+		core.rootScene.addEventListener('touchstart', function(e) {
+			if(is_bgm) return;
+			core.bgm.volum = 0.5;
+			core.bgm.play();
+			core.se.play();
+			is_bgm = true;
+		});
 
 		//マップの作製
 		var map = new Map(16,16);
@@ -186,19 +187,7 @@ window.onload = function() {
 
 		//rootSceneにマップを追加
 		core.rootScene.addChild(map);
-/*
-		//サーフェイスの作成
-		var image = new Surface(320, 320);
-		//[flowers.png]の(0, 96)の位置から幅[126]px, 高さ[64]pxの領域を
-		//サーフェイスの(64, 64)の位置に幅[126]px、高さ[64]pxで描画する
-		image.draw(core.assets['./img/flowers.png'], 0, 96, 126, 64, 64, 64, 126, 64);
 
-		var bg = new Sprite(320, 320);
-
-		bg.image = image;
-
-		core.rootScene.addChild(bg);
-*/
 		//トラップのスプライトを作成
 		var trap = new Sprite(16, 16);
 		trap.image = core.assets['./img/map1.png'];
