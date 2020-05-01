@@ -227,7 +227,22 @@ window.onload = function() {
 				lifeLabel.life = -- core.life;
 				player.x = 120;
 				player.y = 50;
-				if(core.life == 0) core.stop();
+
+				player.tl.fadeOut(1).fadeIn(5).fadeOut(1).fadeIn(5);
+
+				if(core.life == 0) {
+					//30フレームでフェードアプトしながら回転縮小する
+					player.tl.rotateBy(360, 30)
+							 .and().fadeOut(30)
+							 .and().scaleTo(0.2, 30, enchant.Easing.BOUNCE_EASEOUT)
+							 //10フレーム後にゲームオーバー画面を表示する
+							 .cue({10: function() {
+								 //ゲームオーバー
+								 core.end();
+								 //9leapのデータベースに保存する場合は、以下のように記述する
+								 //core.end(score, result);
+							 }});
+				}
 			}
 		});
 
