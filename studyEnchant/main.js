@@ -103,15 +103,6 @@ window.onload = function() {
 	core.se = DOMSound.load('./sound/Ready.wav');
 
 	core.onload = function () {
-		//BGMのボリュームを設定する(0~1)
-		var is_bgm = false;
-		core.rootScene.addEventListener('touchstart', function(e) {
-			if(is_bgm) return;
-			core.bgm.volum = 0.5;
-			core.bgm.play();
-			core.se.play();
-			is_bgm = true;
-		});
 
 		//マップの作製
 		var map = new Map(16,16);
@@ -224,6 +215,16 @@ window.onload = function() {
 				player.y = 50;
 				if(core.life == 0) core.stop();
 			}
+
+			//BGMのボリュームを設定する(0~1)
+			var is_bgm = false;
+			core.rootScene.addEventListener('touchstart', function(e) {
+				if(is_bgm) return;
+				core.bgm.volum = 0.5;
+				core.bgm.play();
+				core.se.play();
+				is_bgm = true;
+			});
 		});
 
 		var lifeLabel = new LifeLabel(180, 0, core.life);
