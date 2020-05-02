@@ -43,6 +43,7 @@
         if(username_text != "" && message_text != "") {
             var dataRef = database.ref('chat_data');
             dataRef.push({name: username_text, string: message_text});
+            message.value = "";
         } else {
             alert("ちゃんと入力してね( 'ω')");
         }
@@ -55,8 +56,8 @@
         <fieldset>
         <div id="input_space">
             <textarea placeholder="送信する文字" id="message" required></textarea><br>
-            <input type="text" placeholder="ユーザーネーム" id="username" required />
-            <input type="submit" onclick="soshin()" />
+            <input type="text" placeholder="ユーザーネーム" id="username" />
+            <input type="button" onclick="soshin()" value="送信"/>
         </div>
         </fieldset>
     </from>
