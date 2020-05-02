@@ -43,11 +43,15 @@
         if(username_text != "" && message_text != "") {
             var dataRef = database.ref('chat_data');
             var date_now = new Date();
+            localStorage.setItem('username', username_text);
             dataRef.push({name: username_text, string: message_text, date: date_now.getTime()});
             message.value = "";
         } else {
             alert("ちゃんと入力してね( 'ω')");
         }
+    }
+    window.onload = function() {
+        username.value = localStorage.getItem('username');
     }
     </script>
 </head>
