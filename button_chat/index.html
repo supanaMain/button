@@ -35,21 +35,21 @@
     var dataRef = database.ref('chat_data');
     dataRef.on('child_added', function (snapshot) {
         if(snapshot.child("name").val() != null)
-	            output_space.innerHTML += snapshot.child("name").val() + ": " + snapshot.child("string").val() + '<br>';
+	            output_space.innerHTML = snapshot.child("name").val() + ": " + snapshot.child("string").val() + '<br>' + output_space.innerHTML;
     });
     function soshin() {
         var username_text = username.value.replace(/^\s+/g, "");
         var message_text = message.value.replace(/^\s+/g, "");
         if(username_text != "" && message_text != "") {
             var dataRef = database.ref('chat_data');
-            dataRef.push({name: username_text, string: message_text});
+            var date_now = new Date();
+            dataRef.push({name: username_text, string: message_text, date: date_now.getTime()});
             message.value = "";
         } else {
             alert("ちゃんと入力してね( 'ω')");
         }
     }
     </script>
-
 </head>
 <body>
     <form>
