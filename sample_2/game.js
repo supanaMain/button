@@ -97,7 +97,7 @@ window.onload = function() {
 		npc.addEventListener('enterframe', function(e) {
 			//「0」から「499」の乱数を生成し、その値が10以下なら、
 			//NPCの向きを切り替える（フレーム番号を「７」から「４」、または「４」から「７」に切り替える）
-			if(rand(500) < 10) this.frame = this.frame == 7 ? 4 : 7;
+			this.frame = rand(500) < 10 ? 4 : 7;
 		});
 		core.rootScene.addChild(npc);
 
