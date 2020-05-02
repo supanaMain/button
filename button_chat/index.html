@@ -35,7 +35,7 @@
     var dataRef = database.ref('chat_data');
     dataRef.on('child_added', function (snapshot) {
         if(snapshot.child("name").val() != null)
-	            output_space.innerHTML = snapshot.child("name").val() + ": " + snapshot.child("string").val() + '<br>' + output_space.innerHTML;
+	            output_space.innerHTML = "<p><font color='green'>" + snapshot.child("name").val() + "</font> <small color='gray'>" + snapshot.child("date").val() + "</small><br>" + snapshot.child("string").val() + '</p>' + output_space.innerHTML;
     });
     function soshin() {
         var username_text = username.value.replace(/^\s+/g, "");
@@ -43,8 +43,10 @@
         if(username_text != "" && message_text != "") {
             var dataRef = database.ref('chat_data');
             var date_now = new Date();
+            var minute_now = date_now.getMinutes() < 10 ? "0" + date_now.getMinutes() : date_now.getMinutes();
+            var upload_date = `${date_now.getFullYear()}/${date_now.getMonth()}/${date_now.getDay()} ${date_now.getHours()}:${minute_now}`;
             localStorage.setItem('username', username_text);
-            dataRef.push({name: username_text, string: message_text, date: date_now.getTime()});
+            dataRef.push({name: username_text, string: message_text, date: upload_date});
             message.value = "";
         } else {
             alert("ちゃんと入力してね( 'ω')");
