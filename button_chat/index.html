@@ -34,11 +34,11 @@
         var dataRef = database.ref('chat_data');
         dataRef.on('child_added', function (snapshot) {
         	if(snapshot.child("name").val() != null)
-        			output_space.innerHTML = "<p><font color='green'>" + snapshot.child("name").val() + "</font> <font color='gray'><small>" + snapshot.child("date").val() + "</small></font><br>" + snapshot.child("string").val() + '</p>' + output_space.innerHTML;
+        		output_space.innerHTML = "<p><font color='green'>" + snapshot.child("name").val() + "</font> <font color='gray'><small>" + snapshot.child("date").val() + "</small></font><br>" + snapshot.child("string").val() + '</p>' + output_space.innerHTML;
         });
         function send_message() {
-        	var username_text = username.value.replace(/^\s+/g, "").replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "");
-        	var message_text = message.value.replace(/^\s+/g, "").replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "");
+        	var username_text = username.value.replace(/^\s+/g, "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        	var message_text = message.value.replace(/^\s+/g, "").replace(/</g, "&lt;").replace(/>/g, "&gt;");
             message_text = message_text.replace(/\r?\n/g, "<br />");
         	if(username_text != "" && message_text != "") {
         		var dataRef = database.ref('chat_data');
