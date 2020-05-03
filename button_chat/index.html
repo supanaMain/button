@@ -37,6 +37,7 @@
         function send_message() {
         	var username_text = username.value.replace(/^\s+/g, "");
         	var message_text = message.value.replace(/^\s+/g, "");
+            message_text = message_text.replace("\n", "<br>");
         	if(username_text != "" && message_text != "") {
         		var dataRef = database.ref('chat_data');
         		var date_now = new Date();
@@ -68,7 +69,7 @@
         </fieldset>
     </from>
     <fieldset>
-    <p><div id="output_space"></div></p>
+        <p id="output_space"></p>
     </fieldset>
 </body>
 </html>
