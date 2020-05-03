@@ -14,48 +14,48 @@
     <!-- ステータスバーを半透明で表示する(iPad/iPhone用) -->
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Button Chat Room</title>
-    <script type="text/javascript" src="./main.js"></script>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
-
-    <script>
-    // Your web app's Firebase configuration
-    var firebaseConfig = {
-        apiKey: "AIzaSyA3yJkOyNyctVeDZEJvsRtvoYGFJeh-d48",
-        authDomain: "enchantjs-d2c22.firebaseapp.com",
-        databaseURL: "https://enchantjs-d2c22.firebaseio.com",
-        projectId: "enchantjs-d2c22",
-        storageBucket: "enchantjs-d2c22.appspot.com",
-        messagingSenderId: "263536456884"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    var database = firebase.database();
-    var dataRef = database.ref('chat_data');
-    dataRef.on('child_added', function (snapshot) {
-        if(snapshot.child("name").val() != null)
-	            output_space.innerHTML = "<p><font color='green'>" + snapshot.child("name").val() + "</font> <font color='gray'><small>" + snapshot.child("date").val() + "</small></font><br>" + snapshot.child("string").val() + '</p>' + output_space.innerHTML;
-    });
-    function soshin() {
-        var username_text = username.value.replace(/^\s+/g, "");
-        var message_text = message.value.replace(/^\s+/g, "");
-        if(username_text != "" && message_text != "") {
-            var dataRef = database.ref('chat_data');
-            var date_now = new Date();
-            var minute_now = date_now.getMinutes() < 10 ? "0" + date_now.getMinutes() : date_now.getMinutes();
-            var upload_date = `${date_now.getFullYear()}/${date_now.getMonth()}/${date_now.getDay()} ${date_now.getHours()}:${minute_now}`;
-            localStorage.setItem('username', username_text);
-            dataRef.push({name: username_text, string: message_text, date: upload_date});
-            message.value = "";
-        } else {
-            alert("ちゃんと入力してね( 'ω')");
+    <script type="text/javascript">
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyA3yJkOyNyctVeDZEJvsRtvoYGFJeh-d48",
+            authDomain: "enchantjs-d2c22.firebaseapp.com",
+            databaseURL: "https://enchantjs-d2c22.firebaseio.com",
+            projectId: "enchantjs-d2c22",
+            storageBucket: "enchantjs-d2c22.appspot.com",
+            messagingSenderId: "263536456884"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        var database = firebase.database();
+        var dataRef = database.ref('chat_data');
+        dataRef.on('child_added', function (snapshot) {
+        	if(snapshot.child("name").val() != null)
+        			output_space.innerHTML = "<p><font color='green'>" + snapshot.child("name").val() + "</font> <font color='gray'><small>" + snapshot.child("date").val() + "</small></font><br>" + snapshot.child("string").val() + '</p>' + output_space.innerHTML;
+        });
+        function send_message() {
+        	var username_text = username.value.replace(/^\s+/g, "");
+        	var message_text = message.value.replace(/^\s+/g, "");
+        	if(username_text != "" && message_text != "") {
+        		var dataRef = database.ref('chat_data');
+        		var date_now = new Date();
+        		var minute_now = date_now.getMinutes() < 10 ? "0" + date_now.getMinutes() : date_now.getMinutes();
+        		var upload_date = `${date_now.getFullYear()}/${date_now.getMonth()}/${date_now.getDate()} ${date_now.getHours()}:${minute_now}`;
+        		localStorage.setItem('username', username_text);
+        		dataRef.push({name: username_text, string: message_text, date: upload_date});
+        		message.value = "";
+        	} else {
+        		alert("ちゃんと入力してね( 'ω')");
+        	}
         }
-    }
-    window.onload = function() {
-        username.value = localStorage.getItem('username');
-    }
+        window.onload = function() {
+        	username.value = localStorage.getItem('username');
+        }
     </script>
+    <style type="text/css">
+
+    </style>
 </head>
 <body>
     <form>
@@ -63,7 +63,7 @@
         <div id="input_space">
             <textarea placeholder="送信する文字" id="message" required></textarea><br>
             <input type="text" placeholder="ユーザーネーム" id="username" />
-            <input type="button" onclick="soshin()" value="送信"/>
+            <input type="button" onclick="send_message()" value="送信"/>
         </div>
         </fieldset>
     </from>
